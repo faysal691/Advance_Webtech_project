@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { DoctorService } from './Doctor/doctor.service';
-import { Doctorinfo } from './Doctor/doctorrinfo.dto';
+import { Controller, Get, Param, Query ,Delete,Body, Put,Post } from '@nestjs/common';
+import { DoctorService } from './doctor.service';
+import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorrinfo.dto';
 
-@Controller('manager')
-export class ManagerController {
+@Controller('doctor')
+export class DoctorController {
   constructor(private readonly appService: DoctorService) {}
 
   @Get()
@@ -13,12 +13,8 @@ export class ManagerController {
   @Get('/index')
   getIndex(): string {
     return "hello index";
-  }
-  @Get('/admin')
-  getAdmin(): string {
-    return "hello admin";
-  }
-  
+  } 
+
   @Get('/searchuserby/:id')
   getUser(@Param('id') id:number): string {
     return "the user is"+id;
@@ -45,7 +41,19 @@ export class ManagerController {
 
   @Post('/adduser')
   addUserByObject(@Body() user:Doctorinfo ): object {
-    return user;
+    return {user};
+  }
+
+
+
+  @Post('/create')
+  create(@Body()createDoctorDto:CreateDoctorDto):any{
+    return {message : 'Doctor Created', data:CreateDoctorDto};
+  }
+
+  @Post('/update')
+  update(@Body()updateDoctorDto:UpdateDoctorDto):any{
+    return {message : 'Doctor Updated', data:UpdateDoctorDto};
   }
 
 }
