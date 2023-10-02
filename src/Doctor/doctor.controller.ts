@@ -22,7 +22,7 @@ export class DoctorController {
 
   @Get('/searchuserby/:name')
   getName(@Param('id') name:string): string {
-    return "the name is"+name;
+    return "The name is"+name;
   }
 
   @Get('/getuserby')
