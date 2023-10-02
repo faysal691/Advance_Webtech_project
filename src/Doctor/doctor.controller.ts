@@ -8,7 +8,7 @@ export class DoctorController {
 
   @Get()
   getHello(): string {
-    return "hello me";
+    return "hello Me";
   }
   @Get('/index')
   getIndex(): string {
