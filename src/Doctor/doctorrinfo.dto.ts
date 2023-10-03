@@ -4,12 +4,15 @@ export class Doctorinfo{
     password:string;
     address:string;
     age:number;
+    specialty1:string;
 }
 export class CreateDoctorDto{
-    name:string;
-    specialty:string;
+    name1:string;
+    id1:string;
+    specialty1:string;
 }
 export class UpdateDoctorDto{
-    name:string;
-    specialty:string;
+    name2:string;
+    id2:string;
+    specialty2:string;
 }

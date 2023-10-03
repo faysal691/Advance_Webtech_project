@@ -14,23 +14,27 @@ export class DoctorController {
   getIndex(): string {
     return "hello index";
   } 
-  @Get('/searchuserby/:id')
+  @Get('/searchdoctorby/:id')
   getUser(@Param('id') id:number): string {
-    return "the user is"+id;
+    return "the Doctor is"+id;
   }
-  @Get('/searchuserby/:name')
-  getName(@Param('id') name:string): string {
+  @Get('/searchdoctorby/:name')
+  getName(@Param('name') name:string): string {
     return "The name is"+name;
   }
-  @Get('/getuserby')
+  @Get('/searchdoctorby/:username')
+  getUserame(@Param('username') username:string): string {
+    return "The name is"+username;
+  }
+  @Get('/getdoctorby')
   getUserByNameAndId(@Query('name') name: string, @Query('id') id:number): string {
     return "the name is "+name+" and ID id "+id;
   }
-  @Get('/searchuserbyobject')
+  @Get('/searchdoctorbyobject')
   getUserByBody(@Body('name') name: string, @Body('id') id:number): object{
     return {name,id};
   }
-  @Post('/adduserobject')
+  @Post('/adddoctorobject')
   addUserByNameAndId(@Body('name') name: string, @Body('id') id:number): string {
     return "the name is "+name+" and ID id "+id;
   }
@@ -53,24 +57,6 @@ export class DoctorController {
   @Delete(':id')
   remove(@Param('id') id: string): any {
     return { message: `Doctor with ID ${id} deleted` };
-  }
-  @Get(':id/patients')
-  findPatients(@Param('id') id: string): any {
-    return { message: `Patients of Doctor with ID ${id}` };
-  }
-
-  @Post(':id/patients')
-  addPatient(@Param('id') id: string, @Body() patientData: any): any {
-    return { message: `Patient added to Doctor with ID ${id}`, data: patientData };
-  }
-  @Get(':id/appointments')
-  findAppointments(@Param('id') id: string): any {
-    return { message: `Appointments of Doctor with ID ${id}` };
-  }
-
-  @Post(':id/appointments')
-  createAppointment(@Param('id') id: string, @Body() appointmentData: any): any {
-    return { message: `Appointment created for Doctor with ID ${id}`, data: appointmentData };
   }
 
 }
