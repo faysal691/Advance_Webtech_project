@@ -4,6 +4,7 @@ import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorrinfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 
+
 @Controller('doctor')
 export class DoctorController {
   constructor(private readonly appService: DoctorService) {}
@@ -16,6 +17,7 @@ export class DoctorController {
   getIndex(): string {
     return "hello index";
   }
+  
   @Get('/searchdoctorby/:id')
   getUser(@Param('id') id:number): string {
     return "the Doctor is"+id;
@@ -50,9 +52,14 @@ export class DoctorController {
 
 
   @Post('/create')
+  @UsePipes(new ValidationPipe())
   create(@Body()createDoctorDto:CreateDoctorDto):any{
+    console.log(createDoctorDto.name1);
     return {message : 'Doctor Created', data:CreateDoctorDto};
   }
+
+
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto): any {
     return { message: `Doctor with ID ${id} updated`, data: updateDoctorDto };
