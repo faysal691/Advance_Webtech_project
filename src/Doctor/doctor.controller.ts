@@ -76,7 +76,7 @@ export class DoctorController {
 
 //Upload
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file',
+  @UseInterceptors ( FileInterceptor('file',
   { fileFilter: (_req, file, cb) => {
   if (file.originalname.match(/^.*\.(jpg|webp|png|jpeg)$/))
   cb(null, true);
@@ -85,15 +85,16 @@ export class DoctorController {
   }
   },
   limits: { fileSize: 300000000 },
-  storage:diskStorage({
+  storage:diskStorage ({
   destination: './uploads',
   filename: function (_req, file, cb) {
   cb(null,Date.now()+file.originalname)
   },
   })
-  }))
+  }))  
   uploadFile(@UploadedFile() file: Express.Multer.File) {
   console.log(file);
+  return "sucessfull";
   }
 
 }
