@@ -44,11 +44,13 @@ export class DoctorController {
   }
 
 //Validation
-  @Post('/adduser')
+  @Post('/adddoctor')
   @UsePipes(new ValidationPipe())
   addUserByObject(@Body() user:Doctorinfo ): object {
     return user;
   }
+
+
 
 
   @Post('/create')
