@@ -13,6 +13,11 @@ export class DoctorController {
   getHello(): string {
     return "hello Me";
   }
+  // @Get()
+  // findAllDoctor():string{
+  //   return "This api will return all doctor";
+  // }
+
   @Get('/index')
   getIndex(): string {
     return "hello index";
