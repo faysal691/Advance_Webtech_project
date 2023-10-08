@@ -75,9 +75,19 @@ export class DoctorController {
   partialUpdate(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto): any {
     return { message: `Doctor with ID ${id} partially updated`, data: updateDoctorDto };
   }
-  @Delete(':id')
-  remove(@Param('id') id: string): any {
-    return { message: `Doctor with ID ${id} deleted` };
+
+  
+  @Delete('/deletedoctorby/:name')
+  removename(@Param('name') name: string): string {
+    return "Doctor "+name+" id is deleted";
+  }
+  @Delete('/deletedoctorby:id')
+  removeid(@Param('id') id: number): string {
+    return "Doctor "+id+" id is deleted";
+  }
+  @Delete('/deletedoctorby')
+  deletedoctor(@Query('name') name: string, @Query('id') id:number): string {
+    return "Doctor deleted ";
   }
 
 
