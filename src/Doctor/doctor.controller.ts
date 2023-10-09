@@ -54,6 +54,11 @@ export class DoctorController {
   addUserByObject(@Body() user:Doctorinfo ): object {
     return user;
   }
+  @Post('/adddoctorbyname')
+  @UsePipes(new ValidationPipe())
+  addUserByObjectname(@Body() user:Doctorinfo ): string {
+    return user.name;
+  }
 
 
 
@@ -95,7 +100,7 @@ export class DoctorController {
   @Post('upload')
   @UseInterceptors ( FileInterceptor('file',
   { fileFilter: (_req, file, cb) => {
-  if (file.originalname.match(/^.*\.(jpg|webp|png|jpeg)$/))
+  if (file.originalname.match(/^.*\.(jpg|webp|pdf|doc)$/))
   cb(null, true);
   else {
   cb(new MulterError('LIMIT_UNEXPECTED_FILE', 'image'), false);
