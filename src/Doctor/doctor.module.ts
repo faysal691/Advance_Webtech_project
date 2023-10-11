@@ -4,13 +4,12 @@ import { DoctorService } from './doctor.service';
 //import { DoctorMiddleware } from './doctor.middleware';
 //import { MiddlewareBuilder } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Doctorinfo } from './doctorrinfo.dto';
+import { DoctorEntity } from './doctor.entity';
 
 
 
 @Module({
-  imports: [],
-  //imports: [TypeOrmModule.forFeature([Doctorinfo]),],
+  imports: [TypeOrmModule.forFeature([DoctorEntity]),],
   controllers: [DoctorController],
   providers: [DoctorService],
 })
