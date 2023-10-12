@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, ParseIntPipe, UsePipes, ValidationPipe, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
-import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorrinfo.dto';
+import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 
@@ -33,7 +33,7 @@ export class DoctorController {
   }
   @Get('/searchdoctorby/:username')
   getUserame(@Param('username') username:string): string {
-    return "The name is"+username;
+    return "The user is"+username;
   }
   @Get('/getdoctorby')
   getUserByNameAndId(@Query('name') name: string, @Query('id') id:number): string {
@@ -66,7 +66,7 @@ export class DoctorController {
   @Post('/create')
   @UsePipes(new ValidationPipe())
   create(@Body()createDoctorDto:CreateDoctorDto):any{
-    console.log(createDoctorDto.name1);
+    console.log(createDoctorDto.name);
     return {message : 'Doctor Created', data:CreateDoctorDto};
   }
 
