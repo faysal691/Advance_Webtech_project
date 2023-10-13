@@ -7,7 +7,7 @@ import { MulterError, diskStorage } from 'multer';
 
 @Controller('doctor')
 export class DoctorController {
-  constructor(private readonly appService: DoctorService) {}
+  constructor(private readonly DoctorService: DoctorService) {}
 
   @Get()
   getHello(): string {
@@ -47,12 +47,12 @@ export class DoctorController {
   addUserByNameAndId(@Body('name') name: string, @Body('id') id:number): string {
     return "the name is "+name+" and ID id "+id;
   }
-
-//Validation
+ 
+//Validation 
   @Post('/adddoctor')
   @UsePipes(new ValidationPipe())
-  addUserByObject(@Body() user:Doctorinfo ): object {
-    return user;
+  addDoctor(@Body() user:Doctorinfo ) {
+    return this.DoctorService.addDoctor(user);
   }
   @Post('/adddoctorbyname')
   @UsePipes(new ValidationPipe())

@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { DoctorController } from './Doctor/doctor.controller';
-import { DoctorService } from './Doctor/doctor.service';
 import { ManagerController } from './manager.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DoctorModule } from './Doctor/doctor.module';
@@ -17,7 +15,7 @@ import { DoctorModule } from './Doctor/doctor.module';
     autoLoadEntities: true,
     synchronize: true,
     } ),],
-  controllers: [DoctorController, ManagerController,],
-  providers: [DoctorService],
+  controllers: [ManagerController],
+  providers: [],
 })
 export class AppModule {}

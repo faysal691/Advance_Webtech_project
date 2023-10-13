@@ -2,13 +2,9 @@ import { IsEmpty, IsNotEmpty, IsNumber, IsPositive, IsString, Length, Matches, M
 
 export class Doctorinfo {
 
-    @IsNotEmpty()
+    @IsNotEmpty() 
     @IsString()
     name: string;
-
-    @IsNumber()
-    @IsPositive()
-    id: number;
 
     @IsString()
     @Matches(/^[a-z,0-9]/)

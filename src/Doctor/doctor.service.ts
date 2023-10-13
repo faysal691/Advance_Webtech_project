@@ -6,22 +6,20 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class DoctorService {
+ 
+  constructor(
+    @InjectRepository(DoctorEntity) 
+    private doctorRepo: Repository<DoctorEntity>) {}
 
-  public doctorinfo : Doctorinfo[] = [];
-
-  getHello(): string {
-    return 'Hello World!';
+    getHello(): string {
+      return 'Hello World!';
+    }
+  // userRepository is the local repository
+  
+  async addDoctor(Doctorinfo: Doctorinfo): Promise<DoctorEntity> {
+    const res = this.doctorRepo.save(Doctorinfo);
+    return res;
   }
-  
-  // constructor(
-  //   @InjectRepository(DoctorEntity) 
-  //   private doctorRepo: Repository<DoctorEntity>) {}
-
-  // // userRepository is the local repository
-  
-  // async addUserByObject(user: DoctorEntity): Promise<DoctorEntity> {
-  // return this.doctorRepo.save(user);
-  // }
   // async getAllUsers(): Promise<DoctorEntity[]> {
   // return this.doctorRepo.find();
   // }
@@ -34,8 +32,6 @@ export class DoctorService {
   // async deletedoctor(id: number): Promise<void> {
   // await this.doctorRepo.delete(id);
   // }
-
-
 
 
 }

@@ -18,5 +18,4 @@ export class DoctorModule{}
 //   configure(consumer: MiddlewareBuilder){
 //     consumer.apply(DoctorMiddleware).forRoutes('doctor');
 //   }
-// }
- 
+// } 
