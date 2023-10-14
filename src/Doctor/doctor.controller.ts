@@ -3,6 +3,9 @@ import { DoctorService } from './doctor.service';
 import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
+import { promises } from 'dns';
+import { DoctorEntity } from './doctor.entity';
+import { userInfo } from 'os';
 
 
 @Controller('doctor')
@@ -23,45 +26,70 @@ export class DoctorController {
     return "hello index";
   }
   
-  @Get('/searchdoctorby/:id')
-  getUser(@Param('id') id:number): string {
-    return "the Doctor is"+id;
-  }
-  @Get('/searchdoctorby/:name')
-  getName(@Param('name') name:string): string {
-    return "The name is"+name;
-  }
-  @Get('/searchdoctorby/:username')
-  getUserame(@Param('username') username:string): string {
-    return "The user is"+username;
-  }
-  @Get('/getdoctorby')
-  getUserByNameAndId(@Query('name') name: string, @Query('id') id:number): string {
-    return "the name is "+name+" and ID id "+id;
-  }
-  @Get('/searchdoctorbyobject')
-  getUserByBody(@Body('name') name: string, @Body('id') id:number): object{
-    return {name,id};
-  }
-  @Post('/adddoctorobject')
-  addUserByNameAndId(@Body('name') name: string, @Body('id') id:number): string {
-    return "the name is "+name+" and ID id "+id;
-  }
+  // @Get('/searchdoctorby/:name')
+  // getName(@Param('name') name:string): string {
+  //   return "The name is"+name;
+  // }
+  // @Get('/searchdoctorby/:username')
+  // getUserame(@Param('username') username:string): string {
+  //   return "The user is"+username;
+  // }
+  // @Get('/getdoctorby')
+  // getUserByNameAndId(@Query('name') name: string, @Query('id') id:number): string {
+  //   return "the name is "+name+" and ID id "+id;
+  // }
+  // @Get('/searchdoctorbyobject')
+  // getUserByBody(@Body('name') name: string, @Body('id') id:number): object{
+  //   return {name,id};
+  // }
+  // @Post('/adddoctorobject')
+  // addUserByNameAndId(@Body('name') name: string, @Body('id') id:number): string {
+  //   return "the name is "+name+" and ID id "+id;
+  // }
  
-//Validation 
+ /*-------------------------------------------Validation------------------------------------------- */
   @Post('/adddoctor')
   @UsePipes(new ValidationPipe())
   addDoctor(@Body() user:Doctorinfo ) {
     return this.DoctorService.addDoctor(user);
   }
+  @Get('/getAllDoctors')
+  getAllDoctors(@Body() user:Doctorinfo ) {
+    return this.DoctorService.getAllDoctors();
+  }
+
+  @Get('/searchDoctorBy/:id')
+  getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
+    return this.DoctorService.getDoctorbyId(id);
+  }
+  @Put('/updateByid/:id')
+  updateUser(@Param('id') id: number, @Body()userInfo:Doctorinfo) {
+    return this.DoctorService.updateUser(id,userInfo);
+  }
+  // @Put('/updateByid/:id')
+  // updateUser(Param('id')id:number,Body() userInfo:Doctorinfo){
+  //   return this.DoctorService.updateUser(id,userInfo);
+  // }
+
+  @Delete('/deleteDoctor/:id')
+  deleteDoctor(@Param('id') id:number ):Promise<void> {
+    return this.DoctorService.deleteDoctor(id);
+  }
+
+
+
+
+
+
+
+  /*-------------------------------------------------------------------------------------- */
+
+
   @Post('/adddoctorbyname')
   @UsePipes(new ValidationPipe())
   addUserByObjectname(@Body() user:Doctorinfo ): string {
     return user.name;
   }
-
-
-
 
   @Post('/create')
   @UsePipes(new ValidationPipe())

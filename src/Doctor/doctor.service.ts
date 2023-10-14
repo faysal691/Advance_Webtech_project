@@ -14,24 +14,25 @@ export class DoctorService {
     getHello(): string {
       return 'Hello World!';
     }
-  // userRepository is the local repository
+  // userRepository is the local repository 
   
   async addDoctor(Doctorinfo: Doctorinfo): Promise<DoctorEntity> {
     const res = this.doctorRepo.save(Doctorinfo);
     return res;
   }
-  // async getAllUsers(): Promise<DoctorEntity[]> {
-  // return this.doctorRepo.find();
-  // }
-  // async getUserById(id: number): Promise<DoctorEntity> {
-  // return this.doctorRepo.findOneBy({id:id});
-  // }
-  // async updateUser(id: number, updatedUser: DoctorEntity): Promise<DoctorEntity> {
-  // await this.doctorRepo.update(id, updatedUser);
-  // return this.doctorRepo.findOneBy({id:id}); }
-  // async deletedoctor(id: number): Promise<void> {
-  // await this.doctorRepo.delete(id);
-  // }
+  async updateUser(id: number, updatedUser: Doctorinfo): Promise<DoctorEntity> {
+    const res = await this.doctorRepo.update(id, updatedUser);
+    return this.doctorRepo.findOneBy({id:id}); 
+  }
+  async getAllDoctors(): Promise<DoctorEntity[]> {
+  return this.doctorRepo.find();
+  }
+  async getDoctorbyId(id: number): Promise<DoctorEntity> {
+    return this.doctorRepo.findOneBy({id:id});
+  }      
+  async deleteDoctor(id: number): Promise<void> {
+    await this.doctorRepo.delete(id);
+  }
 
 
 }
