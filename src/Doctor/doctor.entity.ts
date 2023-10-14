@@ -17,11 +17,14 @@ password: string;
 
 @Column()
 address: string;
-
+ 
 @Column()
 age: number;
 
 @Column()
-specialty: string;
+filename: string;
+
+// @Column()
+// filename: string;
 
 }

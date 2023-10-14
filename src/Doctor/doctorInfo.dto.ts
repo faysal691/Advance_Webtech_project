@@ -22,9 +22,12 @@ export class Doctorinfo {
     @IsPositive()
     age: number;
 
+    // @IsString()
+    // specialty: string;
+
     @IsString()
-    specialty: string;
-}
+    filename:string;
+} 
 export class CreateDoctorDto {
     name: string;
     username: string;

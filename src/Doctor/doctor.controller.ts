@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, ParseIntPipe, UsePipes, ValidationPipe, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, ParseIntPipe, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -124,11 +124,45 @@ export class DoctorController {
   }
 
 
-//Upload
+/*-------------------------------------------Upload File-------------------------------------------*/
+@Get('/getimage/:name')
+ getImages(@Param('name') name:string, @Res() res) {
+ res.sendFile(name,{ root: './upload' })
+ }
+
+@Post('addadmin')
+@UsePipes(new ValidationPipe())
+@UseInterceptors(FileInterceptor('profilepic',
+{ fileFilter: (_req, file, cb) => {
+  if (file.originalname.match(/^.*\.(jpg|webp|png|jpeg)$/))
+   cb(null, true);
+  else {
+   cb(new MulterError('LIMIT_UNEXPECTED_FILE', 'image'), false);
+   }
+  },
+  limits: { fileSize: 30000000 },
+  storage:diskStorage({
+  destination: './upload',
+  filename: function (_req, file, cb) {
+   cb(null,Date.now()+file.originalname)
+  },
+  })
+}
+))
+addAdmin(@Body() adminInfo:Doctorinfo, @UploadedFile()  myfile: Express.Multer.File) {
+  adminInfo.filename = myfile.filename;
+return this.DoctorService.addDoctor(adminInfo);
+}
+
+
+
+
+
+
   @Post('upload')
   @UseInterceptors ( FileInterceptor('file',
   { fileFilter: (_req, file, cb) => {
-  if (file.originalname.match(/^.*\.(jpg|webp|pdf|doc)$/))
+  if (file.originalname.match(/^.*\.(jpeg|jpg|webp|pdf|doc)$/))
   cb(null, true);
   else {
   cb(new MulterError('LIMIT_UNEXPECTED_FILE', 'image'), false);
@@ -146,5 +180,7 @@ export class DoctorController {
   console.log(file);
   return "sucessfull";
   }
+
+
 
 }
