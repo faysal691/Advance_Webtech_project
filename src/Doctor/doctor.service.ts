@@ -24,6 +24,10 @@ export class DoctorService {
     const res = await this.doctorRepo.update(id, updatedUser);
     return this.doctorRepo.findOneBy({id:id}); 
   }
+  async updateUsers(id: number, updatedUsers: Doctorinfo): Promise<DoctorEntity> {
+    const res = await this.doctorRepo.update(id, updatedUsers);
+    return this.doctorRepo.findOneBy({id:id}); 
+  }
   async getAllDoctors(): Promise<DoctorEntity[]> {
   return this.doctorRepo.find();
   }

@@ -60,9 +60,14 @@ export class DoctorController {
   getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
     return this.DoctorService.getDoctorbyId(id);
   }
-  @Put('/updateByid/:id')
+  @Put('/updatePutByid/:id')
   updateUser(@Param('id') id: number, @Body()userInfo:Doctorinfo) {
     return this.DoctorService.updateUser(id,userInfo);
+  }
+
+  @Patch('/updatePatchByid/:id')
+  updateUsers(@Param('id') id: number, @Body()userInfo:Doctorinfo) {
+    return this.DoctorService.updateUsers(id,userInfo);
   }
   // @Put('/updateByid/:id')
   // updateUser(Param('id')id:number,Body() userInfo:Doctorinfo){
@@ -149,7 +154,7 @@ export class DoctorController {
 ))
 addAdmin(@Body() doctorInfo:Doctorinfo, @UploadedFile()  file: Express.Multer.File) {
   doctorInfo.filename = file.filename;
-return this.DoctorService.addDoctor(doctorInfo);
+  return this.DoctorService.addDoctor(doctorInfo);
 }
 
 
