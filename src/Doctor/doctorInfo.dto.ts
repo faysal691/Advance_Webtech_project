@@ -2,30 +2,29 @@ import { IsEmpty, IsNotEmpty, IsNumber, IsPositive, IsString, Length, Matches, M
 
 export class Doctorinfo {
 
-    @IsNotEmpty() 
-    @IsString()
+    // @IsNotEmpty() 
+    // @IsString()
     name: string;
 
-    @IsString()
-    @Matches(/^[a-z,0-9]/)
+    // @IsString()
+    // @Matches(/^[a-z,0-9]/)
     username: string;
 
-    @IsString()
-    @Length(5)
-    @Matches(/^[A-Za-z]+[0-9,@,$]/)
+    // @IsString()
+    // @Length(5)
+    // @Matches(/^[A-Za-z]+[0-9,@,$]/)
     password: string;
 
-    @IsString()
+    // @IsString()
     address: string;
 
-    @IsNumber()
-    @IsPositive()
+    // @IsNumber()
+    // @IsPositive()
     age: number;
 
     // @IsString()
-    // specialty: string;
+    specialty: string;
 
-    @IsString()
     filename:string;
 } 
 export class CreateDoctorDto {

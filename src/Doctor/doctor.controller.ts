@@ -3,9 +3,7 @@ import { DoctorService } from './doctor.service';
 import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
-import { promises } from 'dns';
 import { DoctorEntity } from './doctor.entity';
-import { userInfo } from 'os';
 
 
 @Controller('doctor')
@@ -130,7 +128,7 @@ export class DoctorController {
  res.sendFile(name,{ root: './upload' })
  }
 
-@Post('addadmin')
+@Post('/creatDoctor')
 @UsePipes(new ValidationPipe())
 @UseInterceptors(FileInterceptor('profilepic',
 { fileFilter: (_req, file, cb) => {
@@ -149,9 +147,9 @@ export class DoctorController {
   })
 }
 ))
-addAdmin(@Body() adminInfo:Doctorinfo, @UploadedFile()  myfile: Express.Multer.File) {
-  adminInfo.filename = myfile.filename;
-return this.DoctorService.addDoctor(adminInfo);
+addAdmin(@Body() doctorInfo:Doctorinfo, @UploadedFile()  file: Express.Multer.File) {
+  doctorInfo.filename = file.filename;
+return this.DoctorService.addDoctor(doctorInfo);
 }
 
 
@@ -170,7 +168,7 @@ return this.DoctorService.addDoctor(adminInfo);
   },
   limits: { fileSize: 300000000 },
   storage:diskStorage ({
-  destination: './uploads',
+  destination: './upload',
   filename: function (_req, file, cb) {
   cb(null,Date.now()+file.originalname)
   },
