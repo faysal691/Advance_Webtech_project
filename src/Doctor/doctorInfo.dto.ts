@@ -18,8 +18,8 @@ export class Doctorinfo {
     @IsString()
     address: string;
 
-    @IsNumber()
-    @IsPositive()
+    // @IsNumber()
+    // @IsPositive()
     age: number;
 
     @IsString()

@@ -59,14 +59,15 @@ export class DoctorController {
   @Get('/searchDoctorBy/:id')
   getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
     return this.DoctorService.getDoctorbyId(id);
-  }
+  } 
+
   @Put('/updatePutByid/:id')
-  updateUser(@Param('id') id: number, @Body()userInfo:Doctorinfo) {
+  updateUser(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateUser(id,userInfo);
   }
 
   @Patch('/updatePatchByid/:id')
-  updateUsers(@Param('id') id: number, @Body()userInfo:Doctorinfo) {
+  updateUsers(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateUsers(id,userInfo);
   }
   // @Put('/updateByid/:id')
@@ -78,6 +79,17 @@ export class DoctorController {
   deleteDoctor(@Param('id') id:number ):Promise<void> {
     return this.DoctorService.deleteDoctor(id);
   }
+
+  // @Delete('/deleteDoctor/:id')
+  // async deleteDoctor(@Param('id') id:number ):Promise<string> {
+  //   //const deleteDoctor = await this.DoctorService.deleteDoctor(id);
+  //   try {
+  //     await this.DoctorService.deleteDoctor(id);
+  //     return `Doctor with ID ${id} has been successfully deleted.`;
+  //   }catch (error) {
+  //     return error.message;
+  //   }
+  // }
 
 
 

@@ -20,9 +20,10 @@ export class DoctorService {
     const res = this.doctorRepo.save(Doctorinfo);
     return res;
   }
+
   async updateUser(id: number, updatedUser: Doctorinfo): Promise<DoctorEntity> {
     const res = await this.doctorRepo.update(id, updatedUser);
-    return this.doctorRepo.findOneBy({id:id}); 
+    return this.doctorRepo.findOneBy({id:id});
   }
   async updateUsers(id: number, updatedUsers: Doctorinfo): Promise<DoctorEntity> {
     const res = await this.doctorRepo.update(id, updatedUsers);
@@ -37,6 +38,12 @@ export class DoctorService {
   async deleteDoctor(id: number): Promise<void> {
     await this.doctorRepo.delete(id);
   }
+  // async deleteDoctor(id: number): Promise<void> {
+  //   const doctor = await this.doctorRepo.delete(id);
+  //   if (!doctor) {
+  //     throw new Error(`Doctor with ID ${id} not found`);
+  //   }
+  // }
 
 
 }
