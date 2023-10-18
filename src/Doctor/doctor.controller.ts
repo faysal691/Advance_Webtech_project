@@ -4,6 +4,7 @@ import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 import { DoctorEntity } from './doctor.entity';
+import { ManagerEntity } from 'src/manager/manager.entity';
 
 
 @Controller('doctor')
@@ -44,28 +45,66 @@ export class DoctorController {
   // addUserByNameAndId(@Body('name') name: string, @Body('id') id:number): string {
   //   return "the name is "+name+" and ID id "+id;
   // }
+
+  // @Put(':id')
+  // update(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto): any {
+  //   return { message: `Doctor with ID ${id} updated`, data: updateDoctorDto };
+  // }
+  // @Patch(':id')
+  // partialUpdate(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto): any {
+  //   return { message: `Doctor with ID ${id} partially updated`, data: updateDoctorDto };
+  // }
+
+  
+  // @Delete('/deletedoctorby/:name')
+  // removename(@Param('name') name: string): string {
+  //   return "Doctor "+name+" id is deleted";
+  // }
+  // @Delete('/deletedoctorby:id')
+  // removeid(@Param('id') id: number): string {
+  //   return "Doctor "+id+" id is deleted";
+  // }
+  // @Delete('/deletedoctorby')
+  // deletedoctor(@Query('name') name: string, @Query('id') id:number): string {
+  //   return "Doctor deleted ";
+  // }
+
+  // @Post('/adddoctorbyname')
+  // @UsePipes(new ValidationPipe())
+  // addUserByObjectname(@Body() user:Doctorinfo ): string {
+  //   return user.name;
+  // }
+
+  // @Post('/create')
+  // @UsePipes(new ValidationPipe())
+  // create(@Body()createDoctorDto:CreateDoctorDto):any{
+  //   console.log(createDoctorDto.name);
+  //   return {message : 'Doctor Created', data:CreateDoctorDto};
+  // }
  
  /*-------------------------------------------Validation------------------------------------------- */
   @Post('/adddoctor')
   @UsePipes(new ValidationPipe())
   addDoctor(@Body() user:Doctorinfo ) {
     return this.DoctorService.addDoctor(user);
+  } 
+  @Post('/addmanager')
+  @UsePipes(new ValidationPipe())
+  createManager(@Body() manager ) {
+    return this.DoctorService.createManager(manager);
   }
   @Get('/getAllDoctors')
   getAllDoctors(@Body() user:Doctorinfo ) {
     return this.DoctorService.getAllDoctors();
   }
-
   @Get('/searchDoctorBy/:id')
   getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
     return this.DoctorService.getDoctorbyId(id);
   } 
-
   @Put('/updatePutByid/:id')
   updateUser(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateUser(id,userInfo);
   }
-
   @Patch('/updatePatchByid/:id')
   updateUsers(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateUsers(id,userInfo);
@@ -74,69 +113,25 @@ export class DoctorController {
   // updateUser(Param('id')id:number,Body() userInfo:Doctorinfo){
   //   return this.DoctorService.updateUser(id,userInfo);
   // }
-
-  @Delete('/deleteDoctor/:id')
-  deleteDoctor(@Param('id') id:number ):Promise<void> {
-    return this.DoctorService.deleteDoctor(id);
-  }
-
   // @Delete('/deleteDoctor/:id')
-  // async deleteDoctor(@Param('id') id:number ):Promise<string> {
-  //   //const deleteDoctor = await this.DoctorService.deleteDoctor(id);
-  //   try {
-  //     await this.DoctorService.deleteDoctor(id);
-  //     return `Doctor with ID ${id} has been successfully deleted.`;
-  //   }catch (error) {
-  //     return error.message;
-  //   }
+  // deleteDoctor(@Param('id') id:number ):Promise<void> {
+  //   return this.DoctorService.deleteDoctor(id);
   // }
 
-
-
-
-
+  @Delete('/deleteDoctor/:id')
+  async deleteDoctor(@Param('id') id:number ):Promise<string> {
+    //const deleteDoctor = await this.DoctorService.deleteDoctor(id);
+    try {
+      await this.DoctorService.deleteDoctor(id);
+      return `Doctor with ID ${id} has been successfully deleted.`;
+    }catch (error) {
+      return error.message;
+    }
+  }
 
 
   /*-------------------------------------------------------------------------------------- */
 
-
-  @Post('/adddoctorbyname')
-  @UsePipes(new ValidationPipe())
-  addUserByObjectname(@Body() user:Doctorinfo ): string {
-    return user.name;
-  }
-
-  @Post('/create')
-  @UsePipes(new ValidationPipe())
-  create(@Body()createDoctorDto:CreateDoctorDto):any{
-    console.log(createDoctorDto.name);
-    return {message : 'Doctor Created', data:CreateDoctorDto};
-  }
-
-
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto): any {
-    return { message: `Doctor with ID ${id} updated`, data: updateDoctorDto };
-  }
-  @Patch(':id')
-  partialUpdate(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto): any {
-    return { message: `Doctor with ID ${id} partially updated`, data: updateDoctorDto };
-  }
-
-  
-  @Delete('/deletedoctorby/:name')
-  removename(@Param('name') name: string): string {
-    return "Doctor "+name+" id is deleted";
-  }
-  @Delete('/deletedoctorby:id')
-  removeid(@Param('id') id: number): string {
-    return "Doctor "+id+" id is deleted";
-  }
-  @Delete('/deletedoctorby')
-  deletedoctor(@Query('name') name: string, @Query('id') id:number): string {
-    return "Doctor deleted ";
-  }
 
 
 /*-------------------------------------------Upload File-------------------------------------------*/
