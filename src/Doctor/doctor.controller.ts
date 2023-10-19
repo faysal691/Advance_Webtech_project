@@ -93,6 +93,11 @@ export class DoctorController {
   createManager(@Body() manager ) {
     return this.DoctorService.createManager(manager);
   }
+  @Get('getmanagers/:id')
+  getManagers(@Param('id') id:number)
+{
+return this.DoctorService.getManagers(id);
+}
   @Get('/getAllDoctors')
   getAllDoctors(@Body() user:Doctorinfo ) {
     return this.DoctorService.getAllDoctors();

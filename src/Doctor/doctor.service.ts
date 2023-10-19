@@ -5,6 +5,7 @@ import { DoctorEntity } from './doctor.entity';
 import { Repository } from 'typeorm';
 import { ManagerEntity } from 'src/manager/manager.entity';
 
+
 @Injectable()
 export class DoctorService {
  
@@ -23,10 +24,19 @@ export class DoctorService {
     const res = this.doctorRepo.save(Doctorinfo);
     return res;
   }
-  async createManager(manager){
+  createManager(manager){
     return this.managerRepo.save(manager);
   }
+  getManagers(id:number)
+{
+ return this.doctorRepo.find(
+    {
+      where: {id:id},
+      relations: {managers:true}
 
+    }
+  )
+}
   async updateUser(id: number, updatedUser: Doctorinfo): Promise<DoctorEntity> {
     const res = await this.doctorRepo.update(id, updatedUser);
     return this.doctorRepo.findOneBy({id:id});

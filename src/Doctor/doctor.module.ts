@@ -11,3 +11,4 @@ import { ManagerEntity } from 'src/manager/manager.entity';
   providers: [DoctorService],
 })
 export class DoctorModule{}
+ 

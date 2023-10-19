@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from 'typeorm';
-import { DoctorEntity } from 'src/doctor/doctor.entity';
+import { DoctorEntity } from 'src/Doctor/doctor.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 
 
 
@@ -20,11 +20,17 @@ password: string;
 
 @Column()
 address: string;
+
+@Column()
+age: number;
+
+@Column()
+specialty: string;
  
 
 @Column()
 filename: string;
 
-@ManyToOne(()=>DoctorEntity, doctor=>doctor.managers)
+@ManyToOne(() => DoctorEntity, doctor => doctor.managers)
   doctor: DoctorEntity;
 }

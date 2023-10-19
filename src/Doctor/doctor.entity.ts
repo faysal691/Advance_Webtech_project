@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
 import { ManagerEntity } from 'src/manager/manager.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+
 
 @Entity('doctor')
 export class DoctorEntity{
@@ -28,6 +29,6 @@ specialty: string;
 @Column()
 filename: string;
 
-@OneToMany(()=>ManagerEntity, manager=>manager.doctor,{cascade:true})
-managers:ManagerEntity[];
+@OneToMany(() => ManagerEntity, manager => manager.doctor, { cascade:true })
+managers: ManagerEntity[];
 }
