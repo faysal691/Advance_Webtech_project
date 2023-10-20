@@ -29,6 +29,6 @@ specialty: string;
 @Column()
 filename: string;
 
-@OneToMany(() => ManagerEntity, manager => manager.doctor, { cascade:true })
+@OneToMany(() => ManagerEntity, manager => manager.dr, { cascade:true })
 managers: ManagerEntity[];
 }

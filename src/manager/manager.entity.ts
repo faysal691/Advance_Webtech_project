@@ -32,5 +32,5 @@ specialty: string;
 filename: string;
 
 @ManyToOne(() => DoctorEntity, doctor => doctor.managers)
-  doctor: DoctorEntity;
+  dr: DoctorEntity;
 }
