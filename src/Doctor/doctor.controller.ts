@@ -90,14 +90,17 @@ export class DoctorController {
   } 
   @Post('/addmanager')
   @UsePipes(new ValidationPipe())
-  createManager(@Body() manager ) {
-    return this.DoctorService.createManager(manager);
+  createManager(@Body() managers ) {
+    return this.DoctorService.createManager(managers);
   }
   @Get('getmanagers/:id')
-  getManagers(@Param('id') id:number)
-{
-return this.DoctorService.getManagers(id);
-}
+  getManagers(@Param('id') id:number){
+    return this.DoctorService.getManagers(id);
+  }
+  @Get('getdoctorbtmanager/:id')
+  getDoctorByManagers(@Param('id') id:number){
+    return this.DoctorService.getDoctorByManagers(id);
+  }
   @Get('/getAllDoctors')
   getAllDoctors(@Body() user:Doctorinfo ) {
     return this.DoctorService.getAllDoctors();

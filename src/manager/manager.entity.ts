@@ -1,5 +1,5 @@
 import { DoctorEntity } from 'src/Doctor/doctor.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from 'typeorm';
 
 
 
@@ -33,4 +33,7 @@ filename: string;
 
 @ManyToOne(() => DoctorEntity, doctor => doctor.managers)
   dr: DoctorEntity;
+@JoinColumn()
+userProfile: DoctorEntity;
+
 }

@@ -24,8 +24,8 @@ export class DoctorService {
     const res = this.doctorRepo.save(Doctorinfo);
     return res;
   }
-  createManager(manager){
-    return this.managerRepo.save(manager);
+  createManager(managers: any){
+    return this.managerRepo.save(managers);
   }
   getManagers(id:number)
 {
@@ -33,9 +33,14 @@ export class DoctorService {
     {
       where: {id:id},
       relations: {managers:true}
-
     }
   )
+}
+getDoctorByManagers(id:number){
+  return this.managerRepo.find({
+    where: {id:id},
+    relations: {dr:true}
+  })
 }
   async updateUser(id: number, updatedUser: Doctorinfo): Promise<DoctorEntity> {
     const res = await this.doctorRepo.update(id, updatedUser);
