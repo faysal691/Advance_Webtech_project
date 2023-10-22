@@ -90,8 +90,8 @@ export class DoctorController {
   } 
   @Post('/addmanager')
   @UsePipes(new ValidationPipe())
-  createManager(@Body() managers ) {
-    return this.DoctorService.createManager(managers);
+  createManager(@Body() manager ) {
+    return this.DoctorService.createManager(manager);
   }
   @Get('getmanagers/:id')
   getManagers(@Param('id') id:number){

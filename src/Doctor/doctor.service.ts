@@ -24,8 +24,8 @@ export class DoctorService {
     const res = this.doctorRepo.save(Doctorinfo);
     return res;
   }
-  createManager(managers: any){
-    return this.managerRepo.save(managers);
+  createManager(manager){
+    return this.managerRepo.save(manager);
   }
   getManagers(id:number)
 {
