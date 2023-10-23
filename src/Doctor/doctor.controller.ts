@@ -1,10 +1,9 @@
-import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, ParseIntPipe, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res } from '@nestjs/common';
+import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 import { DoctorEntity } from './doctor.entity';
-import { ManagerEntity } from 'src/manager/manager.entity';
 
 
 @Controller('doctor')

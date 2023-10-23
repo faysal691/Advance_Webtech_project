@@ -1,4 +1,4 @@
-import { IsEmpty, IsNotEmpty, IsNumber, IsPositive, IsString, Length, Matches, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsPositive, IsString, Length, Matches } from "class-validator";
 
 export class Doctorinfo {
 

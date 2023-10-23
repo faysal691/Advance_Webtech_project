@@ -65,7 +65,7 @@ getDoctorByManagers(id:number){
       `Doctor with ID ${id} is Delete`
     }
     else{
-      throw new Error(`Doctor with ID ${id} not found`);
+      throw new Error(`Doctor with ID ${id} is not found`);
       
     }
   }
