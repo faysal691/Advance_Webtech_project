@@ -13,7 +13,7 @@ export class DoctorService {
     @InjectRepository(DoctorEntity) 
     private doctorRepo: Repository<DoctorEntity>,
     @InjectRepository(ManagerEntity)
-    private managerRepo: Repository<ManagerEntity>) {}
+    private managerRepo: Repository<ManagerEntity>){}
 
     getHello(): string {
       return 'Hello World!';
@@ -65,7 +65,7 @@ getDoctorByManagers(id:number){
       `Doctor with ID ${id} is Delete`
     }
     else{
-      throw new Error(`Doctor with ID ${id} is not found`);
+      throw new Error(`Doctor with ID ${id} not found`);
       
     }
   }

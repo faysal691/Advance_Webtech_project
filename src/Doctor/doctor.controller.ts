@@ -175,7 +175,6 @@ addAdmin(@Body() doctorInfo:Doctorinfo, @UploadedFile()  file: Express.Multer.Fi
 
 
 
-
   @Post('upload')
   @UseInterceptors ( FileInterceptor('file',
   { fileFilter: (_req, file, cb) => {

@@ -33,6 +33,7 @@ filename: string;
 
 @ManyToOne(() => DoctorEntity, doctor => doctor.managers)
   dr: DoctorEntity;
+  
 // @JoinColumn()
 // userProfile: DoctorEntity;
 
