@@ -82,59 +82,76 @@ export class DoctorController {
   // }
  
  /*-------------------------------------------Validation------------------------------------------- */
-  @Post('/adddoctor')
+ //Create Doctor
+ @Post('/adddoctor')
   @UsePipes(new ValidationPipe())
   addDoctor(@Body() user:Doctorinfo ) {
     return this.DoctorService.addDoctor(user);
   } 
+  //Create Manager
   @Post('/addmanager')
   @UsePipes(new ValidationPipe())
   createManager(@Body() manager ) {
     return this.DoctorService.createManager(manager);
   }
+  //Find Manager by ID
   @Get('getmanagers/:id')
   getManagers(@Param('id') id:number){
     return this.DoctorService.getManagers(id);
   }
+  //Show All Managers
   @Get('getdoctorbtmanager/:id')
   getDoctorByManagers(@Param('id') id:number){
     return this.DoctorService.getDoctorByManagers(id);
   }
+  //Find All Doctors
   @Get('/getAllDoctors')
   getAllDoctors(@Body() user:Doctorinfo ) {
     return this.DoctorService.getAllDoctors();
   }
+  //Find Doctor By ID
   @Get('/searchDoctorBy/:id')
   getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
     return this.DoctorService.getDoctorbyId(id);
   } 
+  //Update Doctor By Put
   @Put('/updatePutByid/:id')
-  updateUser(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
-    return this.DoctorService.updateUser(id,userInfo);
+  updateDoctorbyPut(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
+    return this.DoctorService.updateDoctorbyPut(id,userInfo);
   }
+  //Update Doctor By Patch
   @Patch('/updatePatchByid/:id')
-  updateUsers(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
-    return this.DoctorService.updateUsers(id,userInfo);
+  updateDoctorbyPatch(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
+    return this.DoctorService.updateDoctorbyPatch(id,userInfo);
   }
   // @Put('/updateByid/:id')
-  // updateUser(Param('id')id:number,Body() userInfo:Doctorinfo){
-  //   return this.DoctorService.updateUser(id,userInfo);
+  // updateDoctor(Param('id')id:number,Body() userInfo:Doctorinfo){
+  //   return this.DoctorService.updateDoctor(id,userInfo);
   // }
   // @Delete('/deleteDoctor/:id')
   // deleteDoctor(@Param('id') id:number ):Promise<void> {
   //   return this.DoctorService.deleteDoctor(id);
   // }
 
+  //Delete Doctor By ID
   @Delete('/deleteDoctor/:id')
-  async deleteDoctor(@Param('id') id:number ):Promise<string> {
-    //const deleteDoctor = await this.DoctorService.deleteDoctor(id);
-    try {
-      await this.DoctorService.deleteDoctor(id);
-      return `Doctor with ID ${id} has been successfully deleted.`;
-    }catch (error) {
-      return error.message;
+  async deleteDoctor(@Param('id') id:number ) {
+    const deleteDoctor = await this.DoctorService.deleteDoctor(id);
+    if(deleteDoctor==true)
+    {
+      return "deleted";
     }
-  }
+    else
+    {
+      return "not found";
+    }
+    // try {
+    //   await this.DoctorService.deleteDoctor(id);
+    //   return `Doctor with ID ${id} has been successfully deleted.`;
+    // }catch (error) {
+    //   return error.message;
+    }
+  
 
 
   /*-------------------------------------------------------------------------------------- */
@@ -142,12 +159,14 @@ export class DoctorController {
 
 
 /*-------------------------------------------Upload File-------------------------------------------*/
+//Find Image By Name
 @Get('/getimage/:name')
  getImages(@Param('name') name:string, @Res() res) {
  res.sendFile(name,{ root: './upload' })
  }
 
-@Post('/creatDoctor')
+//Create Doctor With Upload Picture
+@Post('/createDoctor')
 @UsePipes(new ValidationPipe())
 @UseInterceptors(FileInterceptor('profilepic',
 { fileFilter: (_req, file, cb) => {
@@ -174,10 +193,10 @@ addAdmin(@Body() doctorInfo:Doctorinfo, @UploadedFile()  file: Express.Multer.Fi
 
 
 
-
-  @Post('upload')
-  @UseInterceptors ( FileInterceptor('file',
-  { fileFilter: (_req, file, cb) => {
+//Upload Photo
+@Post('upload')
+@UseInterceptors ( FileInterceptor('file',
+{ fileFilter: (_req, file, cb) => {
   if (file.originalname.match(/^.*\.(jpeg|jpg|webp|pdf|doc)$/))
   cb(null, true);
   else {
@@ -191,8 +210,8 @@ addAdmin(@Body() doctorInfo:Doctorinfo, @UploadedFile()  file: Express.Multer.Fi
   cb(null,Date.now()+file.originalname)
   },
   })
-  }))  
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+}))  
+uploadFile(@UploadedFile() file: Express.Multer.File) {
   console.log(file);
   return "sucessfull";
   }
