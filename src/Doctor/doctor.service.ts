@@ -33,18 +33,20 @@ export class DoctorService {
   getManagers(id:number)
   {
     return this.doctorRepo.find(
-      {
-        where: {id:id},
-        relations: {managers:true}
-      }
-)
+    {
+      where: {id:id},
+      relations: {managers:true}
+    }
+  )
 }
 //Show All Managers
 getDoctorByManagers(id:number){
-  return this.managerRepo.find({
-    where: {id:id},
-    relations: {dr:true}
-  })
+  return this.managerRepo.find(
+    {
+      where: {id:id},
+      relations: {dr:true}
+    }
+  )
 }
 //Update Doctor By Put
   async updateDoctorbyPut(id: number, updatedUser: Doctorinfo): Promise<DoctorEntity> {
@@ -75,7 +77,6 @@ getDoctorByManagers(id:number){
     }
     else{
       return false
-      
     }
   }
   async logindoctor(myobj:Doctorinfo)

@@ -4,6 +4,7 @@ import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 import { DoctorEntity } from './doctor.entity';
+import session from 'express-session';
 
 
 @Controller('doctor')
@@ -20,8 +21,9 @@ export class DoctorController {
   // }
 
   @Get('/index')
-  getIndex(): string {
-    return "hello index";
+  getIndex(@Session()session): Promise<DoctorEntity[]> {
+    console.log(session.email)
+    return this.DoctorService.getAllDoctors();
   }
   
   // @Get('/searchdoctorby/:name')
@@ -95,12 +97,12 @@ export class DoctorController {
     return this.DoctorService.createManager(manager);
   }
   //Find Manager by ID
-  @Get('getmanagers/:id')
+  @Get('getmanagerbydoctor/:id')
   getManagers(@Param('id') id:number){
     return this.DoctorService.getManagers(id);
   }
   //Show All Managers
-  @Get('getdoctorbtmanager/:id')
+  @Get('getdoctorbymanager/:id')
   getDoctorByManagers(@Param('id') id:number){
     return this.DoctorService.getDoctorByManagers(id);
   }
@@ -156,7 +158,7 @@ export class DoctorController {
       return {message:"success"};
     }
     else{
-      return {message:"fail"};
+      return {message:"failed"};
     }
   }
 
