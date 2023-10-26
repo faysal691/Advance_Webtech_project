@@ -31,13 +31,13 @@ export class DoctorService {
   }
   //Find Manager by ID
   getManagers(id:number)
-{
- return this.doctorRepo.find(
-    {
-      where: {id:id},
-      relations: {managers:true}
-    }
-  )
+  {
+    return this.doctorRepo.find(
+      {
+        where: {id:id},
+        relations: {managers:true}
+      }
+)
 }
 //Show All Managers
 getDoctorByManagers(id:number){
@@ -78,6 +78,23 @@ getDoctorByManagers(id:number){
       
     }
   }
+  async logindoctor(myobj:Doctorinfo)
+  {
+    const res = await this.doctorRepo.find(
+      {
+        where:{
+          username:myobj.username,
+          password:myobj.password
+      }
+      }
+    )
+      if(res.length!=0){
+        return true;
+      }
+      else{
+        return false;
+      }
+}
 
 
 }

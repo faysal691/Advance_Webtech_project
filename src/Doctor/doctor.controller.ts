@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res } from '@nestjs/common';
+import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res, Session } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -145,14 +145,20 @@ export class DoctorController {
     {
       return "not found";
     }
-    // try {
-    //   await this.DoctorService.deleteDoctor(id);
-    //   return `Doctor with ID ${id} has been successfully deleted.`;
-    // }catch (error) {
-    //   return error.message;
     }
-  
-
+  //Doctor Login
+  @Post('/doctorlogin')
+  async logindoctor(@Body()myobj:Doctorinfo,@Session()session){
+    const res = await this.DoctorService.logindoctor(myobj);
+    if(res==true)
+    {
+      session.email=myobj.username;
+      return {message:"success"};
+    }
+    else{
+      return {message:"fail"};
+    }
+  }
 
   /*-------------------------------------------------------------------------------------- */
 
