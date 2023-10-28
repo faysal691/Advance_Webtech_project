@@ -1,10 +1,11 @@
-import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res, Session } from '@nestjs/common';
+import { Controller, Get, Param, Query ,Delete,Body, Put,Post, Patch, UsePipes, ValidationPipe, UploadedFile, UseInterceptors, Res, Session, UseGuards } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 import { Doctorinfo,CreateDoctorDto,UpdateDoctorDto } from './doctorInfo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 import { DoctorEntity } from './doctor.entity';
 import session from 'express-session';
+import { SessionGuard } from './doctor.guard';
 
 
 @Controller('doctor')
@@ -21,6 +22,7 @@ export class DoctorController {
   // }
 
   @Get('/index')
+  @UseGuards(SessionGuard)
   getIndex(@Session()session): Promise<DoctorEntity[]> {
     console.log(session.email)
     return this.DoctorService.getAllDoctors();
