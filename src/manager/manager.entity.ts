@@ -18,21 +18,8 @@ username: string;
 @Column()
 password: string;
 
-@Column()
-address: string;
-
-@Column()
-age: number;
-
-@Column()
-specialty: string;
- 
-
-@Column()
-filename: string;
-
 @ManyToOne(() => DoctorEntity, doctor => doctor.managers)
-  dr: DoctorEntity;
+  dr: DoctorEntity[];
   
 // @JoinColumn()
 // userProfile: DoctorEntity;

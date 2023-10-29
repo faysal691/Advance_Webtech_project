@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Doctorinfo } from './doctorInfo.dto';
+import { Doctorinfo} from './doctor.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DoctorEntity } from './doctor.entity';
+import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 import { Repository } from 'typeorm';
 import { ManagerEntity } from 'src/manager/manager.entity';
+import { doctorAppointments } from './doctor-appointment.dto';
 
 
 @Injectable()
@@ -12,6 +14,8 @@ export class DoctorService {
   constructor(
     @InjectRepository(DoctorEntity) 
     private doctorRepo: Repository<DoctorEntity>,
+    @InjectRepository(DoctorEntity) 
+    private doctorAppointmentRepo: Repository<DoctorAppointmentsEntity>,
     @InjectRepository(ManagerEntity)
     private managerRepo: Repository<ManagerEntity>){}
 
@@ -25,8 +29,12 @@ export class DoctorService {
     const res = this.doctorRepo.save(Doctorinfo);
     return res;
   }
+  //Create Doctor Appointment
+  addDoctorAppointment(doctorAppointments) {
+    return this.doctorAppointmentRepo.save(doctorAppointments); 
+  }
   //Create Manager
-  createManager(manager){
+  createManager(manager){ 
     return this.managerRepo.save(manager);
   }
   //Find Manager by ID
@@ -62,6 +70,14 @@ getDoctorByManagers(id:number){
   async getAllDoctors(): Promise<DoctorEntity[]> {
   return this.doctorRepo.find();
   }
+   //Find All Doctors Appointments
+  async getAllDoctorsAppointments(): Promise<DoctorAppointmentsEntity[]> {
+    return this.doctorAppointmentRepo.find();
+    }
+    //Find All Doctors Appointments
+  // async getAppointmentsForDoctor(): Promise<DoctorAppointments[]> {
+  // return this.doctorAppointmentRepo.find();
+  // }
   //Find Doctor By ID
   async getDoctorbyId(id: number): Promise<DoctorEntity> {
     return this.doctorRepo.findOneBy({id:id});
