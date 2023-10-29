@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ManagerController } from 'src/manager/manager.controller';
+import { ManagerController } from 'src/patient/patient.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DoctorModule } from './Doctor/doctor.module';
 

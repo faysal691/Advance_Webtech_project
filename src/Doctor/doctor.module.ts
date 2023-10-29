@@ -3,11 +3,11 @@ import { DoctorController } from './doctor.controller';
 import { DoctorService } from './doctor.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DoctorEntity } from './doctor.entity';
-import { ManagerEntity } from 'src/manager/manager.entity';
+import { patientEntity } from 'src/patient/patient.entity';
 import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([DoctorEntity,DoctorAppointmentsEntity,ManagerEntity]),],
+  imports: [TypeOrmModule.forFeature([DoctorEntity,DoctorAppointmentsEntity,patientEntity]),],
   controllers: [DoctorController],
   providers: [DoctorService],
 })

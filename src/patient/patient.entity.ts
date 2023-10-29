@@ -3,8 +3,8 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from 'ty
 
 
 
-@Entity('manager')
-export class ManagerEntity{
+@Entity('patient')
+export class patientEntity{
 
 @PrimaryGeneratedColumn()
 id: number;
@@ -18,7 +18,7 @@ username: string;
 @Column()
 password: string;
 
-@ManyToOne(() => DoctorEntity, doctor => doctor.managers)
+@ManyToOne(() => DoctorEntity, doctor => doctor.patients)
   dr: DoctorEntity[];
   
 // @JoinColumn()

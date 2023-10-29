@@ -4,9 +4,9 @@ import { Doctorinfo} from './doctor.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterError, diskStorage } from 'multer';
 import { DoctorEntity } from './doctor.entity';
-import session from 'express-session';
 import { SessionGuard } from './doctor.guard';
 import { doctorAppointments } from './doctor-appointment.dto';
+import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 
 
 @Controller('doctor')
@@ -27,33 +27,33 @@ export class DoctorController {
 
  /*-------------------------------------------Validation------------------------------------------- */
  //Create Doctor
- @Post('/createdoctor')
+  @Post('/createdoctor')
   @UsePipes(new ValidationPipe())
   addDoctor(@Body() user:Doctorinfo ) {
     return this.DoctorService.addDoctor(user);
   }
  //Create Doctor Appointment
- @Post('/createdoctorappointment')
+  @Post('/createdoctorappointment')
   @UsePipes(new ValidationPipe())
-  addDoctorAppointment(@Body() doctorappointments ) { 
+  addDoctorAppointment(@Body() doctorappointments) { 
     const res = this.DoctorService.addDoctorAppointment(doctorappointments);
     return res;
   }
-  //Create Manager
-  @Post('/createmanager')
+  //Create patient
+  @Post('/createpatient')
   @UsePipes(new ValidationPipe())
-  createManager(@Body() manager ) {
-    return this.DoctorService.createManager(manager);
+  createpatient(@Body() patient ) {
+    return this.DoctorService.createpatient(patient);
   }
-  //Find Manager by ID
-  @Get('getmanagerbydoctor/:id')
-  getManagers(@Param('id') id:number){
-    return this.DoctorService.getManagers(id);
+  //Find patient by ID
+  @Get('getpatientbydoctor/:id')
+  getpatients(@Param('id') id:number){
+    return this.DoctorService.getpatients(id);
   }
-  //Show All Managers
-  @Get('getdoctorbymanager/:id')
-  getDoctorByManagers(@Param('id') id:number){
-    return this.DoctorService.getDoctorByManagers(id);
+  //Show All patients
+  @Get('getdoctorbypatient/:id')
+  getDoctorBypatients(@Param('id') id:number){
+    return this.DoctorService.getDoctorBypatients(id);
   }
   //Find All Doctors
   @Get('/getAllDoctors')
@@ -65,25 +65,35 @@ export class DoctorController {
   getAllDoctorsAppointments(@Body() user:doctorAppointments ) {
     return this.DoctorService.getAllDoctorsAppointments();
   }
-  // @Get(':id/appointments')
-  // async getAppointmentsForDoctor(@Param('id') doctorId: string) {
-  //   const appointments = await this.getAppointmentsForDoctor(doctorId);
-  //   return appointments;
-  // }
   //Find Doctor By ID
   @Get('/searchDoctorBy/:id')
   getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
     return this.DoctorService.getDoctorbyId(id);
   } 
+ //Find All Doctors Appointments by ID
+  @Get('/searchDoctorappointmentBy/:id')
+  getDoctorAppointmentsbyId(@Param('id') id: number):Promise<DoctorAppointmentsEntity> {
+    return this.DoctorService.getDoctorAppointmentsbyId(id);
+  }
   //Update Doctor By Put
   @Put('/updatePutByid/:id')
   updateDoctorbyPut(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateDoctorbyPut(id,userInfo);
   }
+  //Update Doctor Appointment By Put
+  @Put('/updatePutappointmentByid/:id')
+  updateDoctorAppointmentbyPut(@Param('id') id: number, @Body() userInfo:doctorAppointments) {
+    return this.DoctorService.updateDoctorAppointmentbyPut(id,userInfo);
+  }
   //Update Doctor By Patch
   @Patch('/updatePatchByid/:id')
   updateDoctorbyPatch(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateDoctorbyPatch(id,userInfo);
+  }
+  //Update Doctor Appointment By Patch
+  @Patch('/updatePatchappointmentByid/:id')
+  updateDoctorAppointmentbyPatch(@Param('id') id: number, @Body() userInfo:doctorAppointments) {
+    return this.DoctorService.updateDoctorAppointmentbyPatch(id,userInfo);
   }
 
   //Delete Doctor By ID
@@ -99,11 +109,37 @@ export class DoctorController {
       return "not found";
     }
     }
+  //Delete Doctor By ID
+  @Delete('/deleteDoctorAppointment/:id')
+  async deleteDoctorAppointment(@Param('id') id:number ) {
+    const deleteDoctor = await this.DoctorService.deleteDoctorAppointment(id);
+    if(deleteDoctor==true)
+    {
+      return "deleted";
+    }
+    else
+    {
+      return "not found";
+    }
+    }
 
   //Doctor Login
   @Post('/doctorlogin')
   async logindoctor(@Body()myobj:Doctorinfo,@Session()session){
     const res = await this.DoctorService.logindoctor(myobj);
+    if(res==true)
+    {
+      session.email=myobj.username;
+      return {message:"success"};
+    }
+    else{
+      return {message:"failed"};
+    }
+    }
+  //patient Login
+  @Post('/patientlogin')
+  async loginpatient(@Body()myobj:Doctorinfo,@Session()session){
+    const res = await this.DoctorService.loginpatient(myobj);
     if(res==true)
     {
       session.email=myobj.username;

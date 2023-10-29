@@ -1,4 +1,4 @@
-import { ManagerEntity } from 'src/manager/manager.entity';
+import { patientEntity } from 'src/patient/patient.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from 'typeorm';
 import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 
@@ -33,6 +33,6 @@ filename: string;
 @OneToOne(() => DoctorAppointmentsEntity, doctorappointments => doctorappointments.doc, { cascade:true })
 doctorappointments: DoctorAppointmentsEntity;
 
-@OneToMany(() => ManagerEntity, manager => manager.dr, { cascade:true })
-managers: ManagerEntity[];
+@OneToMany(() => patientEntity, patient => patient.dr, { cascade:true })
+patients: patientEntity[];
 }

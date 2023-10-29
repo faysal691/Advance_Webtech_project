@@ -6,8 +6,8 @@ export class Doctorinfo {
     @IsString()
     name: string;
 
-    @IsString()
-    @Matches(/^[a-z,0-9]/)
+    // @IsString()
+    // @Matches(/^[a-z,0-9]/)
     username: string;
 
     @IsString()

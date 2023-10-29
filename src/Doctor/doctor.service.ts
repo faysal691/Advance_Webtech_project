@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DoctorEntity } from './doctor.entity';
 import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 import { Repository } from 'typeorm';
-import { ManagerEntity } from 'src/manager/manager.entity';
+import { patientEntity } from 'src/patient/patient.entity';
 import { doctorAppointments } from './doctor-appointment.dto';
 
 
@@ -14,10 +14,10 @@ export class DoctorService {
   constructor(
     @InjectRepository(DoctorEntity) 
     private doctorRepo: Repository<DoctorEntity>,
-    @InjectRepository(DoctorEntity) 
+    @InjectRepository(DoctorAppointmentsEntity) 
     private doctorAppointmentRepo: Repository<DoctorAppointmentsEntity>,
-    @InjectRepository(ManagerEntity)
-    private managerRepo: Repository<ManagerEntity>){}
+    @InjectRepository(patientEntity)
+    private patientRepo: Repository<patientEntity>){}
 
     getHello(): string {
       return 'Hello World!';
@@ -30,26 +30,26 @@ export class DoctorService {
     return res;
   }
   //Create Doctor Appointment
-  addDoctorAppointment(doctorAppointments) {
-    return this.doctorAppointmentRepo.save(doctorAppointments); 
+  addDoctorAppointment(doctorappointments) {
+    return this.doctorAppointmentRepo.save(doctorappointments); 
   }
-  //Create Manager
-  createManager(manager){ 
-    return this.managerRepo.save(manager);
+  //Create patient
+  createpatient(patient){ 
+    return this.patientRepo.save(patient);
   }
-  //Find Manager by ID
-  getManagers(id:number)
+  //Find patient by ID
+  getpatients(id:number)
   {
     return this.doctorRepo.find(
     {
       where: {id:id},
-      relations: {managers:true}
+      relations: {patients:true}
     }
   )
 }
-//Show All Managers
-getDoctorByManagers(id:number){
-  return this.managerRepo.find(
+//Show All patients
+getDoctorBypatients(id:number){
+  return this.patientRepo.find(
     {
       where: {id:id},
       relations: {dr:true}
@@ -61,10 +61,20 @@ getDoctorByManagers(id:number){
     const res = await this.doctorRepo.update(id, updatedUser);
     return this.doctorRepo.findOneBy({id:id});
   }
+  //Update Doctor Appointment By Put
+  async updateDoctorAppointmentbyPut(id: number, updatedUser: doctorAppointments): Promise<DoctorAppointmentsEntity> {
+    const res = await this.doctorAppointmentRepo.update(id, updatedUser);
+    return this.doctorAppointmentRepo.findOneBy({id:id});
+  }
 //Update Doctor By Patch
   async updateDoctorbyPatch(id: number, updatedUsers: Doctorinfo): Promise<DoctorEntity> {
     const res = await this.doctorRepo.update(id, updatedUsers);
     return this.doctorRepo.findOneBy({id:id}); 
+  }
+  //Update Doctor Appointment By Patch
+  async updateDoctorAppointmentbyPatch(id: number, updatedUser: doctorAppointments): Promise<DoctorAppointmentsEntity> {
+    const res = await this.doctorAppointmentRepo.update(id, updatedUser);
+    return this.doctorAppointmentRepo.findOneBy({id:id});
   }
   //Find All Doctors
   async getAllDoctors(): Promise<DoctorEntity[]> {
@@ -81,10 +91,12 @@ getDoctorByManagers(id:number){
   //Find Doctor By ID
   async getDoctorbyId(id: number): Promise<DoctorEntity> {
     return this.doctorRepo.findOneBy({id:id});
+  }
+  //Find Doctor Appointments By ID
+  async getDoctorAppointmentsbyId(id: number): Promise<DoctorAppointmentsEntity> {
+    return this.doctorAppointmentRepo.findOneBy({id:id});
   }      
-  // async deleteDoctor(id: number): Promise<void> {
-  //   await this.doctorRepo.delete(id);
-  // }
+
   //Delete Doctor By ID
   async deleteDoctor(id: number){
     const doctor = await this.doctorRepo.delete(id);
@@ -95,9 +107,38 @@ getDoctorByManagers(id:number){
       return false
     }
   }
+  //Delete Doctor Appointment By ID
+  async deleteDoctorAppointment(id: number){
+    const doctorAppointment = await this.doctorAppointmentRepo.delete(id);
+    if (doctorAppointment.affected) {
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  //login Doctor
   async logindoctor(myobj:Doctorinfo)
   {
     const res = await this.doctorRepo.find(
+      {
+        where:{
+          username:myobj.username,
+          password:myobj.password
+      }
+      }
+    )
+      if(res.length!=0){
+        return true;
+      }
+      else{
+        return false;
+      }
+}
+  //login patient
+  async loginpatient(myobj:Doctorinfo)
+  {
+    const res = await this.patientRepo.find(
       {
         where:{
           username:myobj.username,
