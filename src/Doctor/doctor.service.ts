@@ -84,10 +84,6 @@ getDoctorBypatients(id:number){
   async getAllDoctorsAppointments(): Promise<DoctorAppointmentsEntity[]> {
     return this.doctorAppointmentRepo.find();
     }
-    //Find All Doctors Appointments
-  // async getAppointmentsForDoctor(): Promise<DoctorAppointments[]> {
-  // return this.doctorAppointmentRepo.find();
-  // }
   //Find Doctor By ID
   async getDoctorbyId(id: number): Promise<DoctorEntity> {
     return this.doctorRepo.findOneBy({id:id});
