@@ -1,5 +1,5 @@
 import { DoctorEntity } from 'src/Doctor/doctor.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany} from 'typeorm';
 
 
 
@@ -19,7 +19,9 @@ username: string;
 password: string;
 
 @ManyToOne(() => DoctorEntity, doctor => doctor.patients)
+@JoinColumn()
   dr: DoctorEntity[];
+  
   
 // @JoinColumn()
 // userProfile: DoctorEntity;
