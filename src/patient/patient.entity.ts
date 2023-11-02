@@ -1,5 +1,5 @@
 import { DoctorEntity } from 'src/Doctor/doctor.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable} from 'typeorm';
 
 
 
@@ -18,12 +18,8 @@ username: string;
 @Column()
 password: string;
 
-@ManyToOne(() => DoctorEntity, doctor => doctor.patients)
-@JoinColumn()
+@ManyToMany(() => DoctorEntity, doctor => doctor.patients)
+@JoinTable()
   dr: DoctorEntity[];
-  
-  
-// @JoinColumn()
-// userProfile: DoctorEntity;
 
 }

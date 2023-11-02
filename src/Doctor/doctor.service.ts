@@ -6,6 +6,7 @@ import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 import { Repository } from 'typeorm';
 import { patientEntity } from 'src/patient/patient.entity';
 import { doctorAppointments } from './doctor-appointment.dto';
+import { Patientinfo } from 'src/patient/patient.dto';
 
 
 @Injectable()
@@ -61,6 +62,11 @@ getDoctorBypatients(id:number){
     const res = await this.doctorRepo.update(id, updatedUser);
     return this.doctorRepo.findOneBy({id:id});
   }
+//Update Patient By Put
+async updatePutpatientByid(id: number, updatedUser: Patientinfo): Promise<patientEntity> {
+  const res = await this.patientRepo.update(id, updatedUser);
+  return this.patientRepo.findOneBy({id:id});
+}
   //Update Doctor Appointment By Put
   async updateDoctorAppointmentbyPut(id: number, updatedUser: doctorAppointments): Promise<DoctorAppointmentsEntity> {
     const res = await this.doctorAppointmentRepo.update(id, updatedUser);

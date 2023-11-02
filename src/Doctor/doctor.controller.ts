@@ -7,6 +7,7 @@ import { DoctorEntity } from './doctor.entity';
 import { SessionGuard } from './doctor.guard';
 import { doctorAppointments } from './doctor-appointment.dto';
 import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
+import { Patientinfo } from 'src/patient/patient.dto';
 
 
 @Controller('doctor')
@@ -79,6 +80,11 @@ export class DoctorController {
   @Put('/updatePutByid/:id')
   updateDoctorbyPut(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateDoctorbyPut(id,userInfo);
+  }
+  //Update  patient By Put
+  @Put('/updatePutpatientByid/:id')
+  updatePutpatientByid(@Param('id') id: number, @Body() userInfo:Patientinfo) {
+    return this.DoctorService.updatePutpatientByid(id,userInfo);
   }
   //Update Doctor Appointment By Put
   @Put('/updatePutappointmentByid/:id')

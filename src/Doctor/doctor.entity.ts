@@ -1,5 +1,5 @@
 import { patientEntity } from 'src/patient/patient.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn, ManyToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn, ManyToMany, JoinTable} from 'typeorm';
 import { DoctorAppointmentsEntity } from './doctor-appointments.entity';
 
 
@@ -30,10 +30,10 @@ specialty: string;
 @Column()
 filename: string;
 
+@ManyToMany(() => patientEntity, patient => patient.dr,{ cascade:true })
+patients: patientEntity[];
+
 @OneToOne(() => DoctorAppointmentsEntity, doctorappointments => doctorappointments.doc, { cascade:true })
 doctorappointments: DoctorAppointmentsEntity;
 
-
-@OneToMany(() => patientEntity, patient => patient.dr)
-patients: patientEntity[];
 }
