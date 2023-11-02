@@ -39,12 +39,12 @@ export class DoctorService {
     return this.patientRepo.save(patient);
   }
   //Find patient by ID
-  getpatients(id:number)
+  getpatientbydoctor(id:number)
   {
     return this.doctorRepo.find(
     {
       where: {id:id},
-      relations: {patients:true}
+      relations: {patients:true,patient:true}
     }
   )
 }
@@ -53,7 +53,7 @@ getDoctorBypatients(id:number){
   return this.patientRepo.find(
     {
       where: {id:id},
-      relations: {dr:true}
+      relations: {dr:true,dc:true}
     }
   )
 }
@@ -138,7 +138,7 @@ async updatePutpatientByid(id: number, updatedUser: Patientinfo): Promise<patien
       }
 }
   //login patient
-  async loginpatient(myobj:Doctorinfo)
+  async loginpatient(myobj:Patientinfo)
   {
     const res = await this.patientRepo.find(
       {

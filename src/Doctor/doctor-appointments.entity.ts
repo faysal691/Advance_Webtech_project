@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne} from 'typeorm';
 import { DoctorEntity } from './doctor.entity';
 
 
@@ -17,7 +17,7 @@ date: string;
 @Column()
 time: string;
 
-@OneToOne(() => DoctorEntity, doctor => doctor.doctorappointments)
+@ManyToOne(() => DoctorEntity, doctor => doctor.doctorappointments)
 @JoinColumn()
 doc: DoctorEntity[];
   

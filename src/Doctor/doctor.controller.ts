@@ -36,23 +36,25 @@ export class DoctorController {
  //Create Doctor Appointment
   @Post('/createdoctorappointment')
   @UsePipes(new ValidationPipe())
-  addDoctorAppointment(@Body() doctorappointments) { 
-    const res = this.DoctorService.addDoctorAppointment(doctorappointments);
+  addDoctorAppointment(@Body() user:doctorAppointments) { 
+    const res = this.DoctorService.addDoctorAppointment(user);
     return res;
   }
   //Create patient
   @Post('/createpatient')
   @UsePipes(new ValidationPipe())
-  createpatient(@Body() patient ) {
-    return this.DoctorService.createpatient(patient);
+  createpatient(@Body() user:Patientinfo ) {
+    return this.DoctorService.createpatient(user);
   }
   //Find patient by ID
   @Get('getpatientbydoctor/:id')
-  getpatients(@Param('id') id:number){
-    return this.DoctorService.getpatients(id);
+  @UseGuards(SessionGuard)
+  getpatientbydoctor(@Param('id') id:number){
+    return this.DoctorService.getpatientbydoctor(id);
   }
   //Show All patients
   @Get('getdoctorbypatient/:id')
+  @UseGuards(SessionGuard)
   getDoctorBypatients(@Param('id') id:number){
     return this.DoctorService.getDoctorBypatients(id);
   }
@@ -78,32 +80,38 @@ export class DoctorController {
   }
   //Update Doctor By Put
   @Put('/updatePutByid/:id')
+  @UseGuards(SessionGuard)
   updateDoctorbyPut(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateDoctorbyPut(id,userInfo);
   }
   //Update  patient By Put
   @Put('/updatePutpatientByid/:id')
+  @UseGuards(SessionGuard)
   updatePutpatientByid(@Param('id') id: number, @Body() userInfo:Patientinfo) {
     return this.DoctorService.updatePutpatientByid(id,userInfo);
   }
   //Update Doctor Appointment By Put
   @Put('/updatePutappointmentByid/:id')
+  @UseGuards(SessionGuard)
   updateDoctorAppointmentbyPut(@Param('id') id: number, @Body() userInfo:doctorAppointments) {
     return this.DoctorService.updateDoctorAppointmentbyPut(id,userInfo);
   }
   //Update Doctor By Patch
   @Patch('/updatePatchByid/:id')
+  @UseGuards(SessionGuard)
   updateDoctorbyPatch(@Param('id') id: number, @Body() userInfo:Doctorinfo) {
     return this.DoctorService.updateDoctorbyPatch(id,userInfo);
   }
   //Update Doctor Appointment By Patch
   @Patch('/updatePatchappointmentByid/:id')
+  @UseGuards(SessionGuard)
   updateDoctorAppointmentbyPatch(@Param('id') id: number, @Body() userInfo:doctorAppointments) {
     return this.DoctorService.updateDoctorAppointmentbyPatch(id,userInfo);
   }
 
   //Delete Doctor By ID
   @Delete('/deleteDoctor/:id')
+  @UseGuards(SessionGuard)
   async deleteDoctor(@Param('id') id:number ) {
     const deleteDoctor = await this.DoctorService.deleteDoctor(id);
     if(deleteDoctor==true)
@@ -117,6 +125,7 @@ export class DoctorController {
     }
   //Delete Doctor By ID
   @Delete('/deleteDoctorAppointment/:id')
+  @UseGuards(SessionGuard)
   async deleteDoctorAppointment(@Param('id') id:number ) {
     const deleteDoctor = await this.DoctorService.deleteDoctorAppointment(id);
     if(deleteDoctor==true)

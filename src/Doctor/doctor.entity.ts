@@ -33,7 +33,11 @@ filename: string;
 @ManyToMany(() => patientEntity, patient => patient.dr,{ cascade:true })
 patients: patientEntity[];
 
-@OneToOne(() => DoctorAppointmentsEntity, doctorappointments => doctorappointments.doc, { cascade:true })
+@ManyToMany(() => patientEntity, patient => patient.dc)
+@JoinTable()
+patient: patientEntity[];
+
+@OneToMany(() => DoctorAppointmentsEntity, doctorappointments => doctorappointments.doc, { cascade:true })
 doctorappointments: DoctorAppointmentsEntity;
 
 }

@@ -2,8 +2,8 @@ export class Patientinfo {
 
     name:string;
     
-    date: string;
+    username: string;
 
-    time: string;
+    password: string;
 
 }

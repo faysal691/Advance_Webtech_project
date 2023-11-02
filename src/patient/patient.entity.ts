@@ -21,5 +21,7 @@ password: string;
 @ManyToMany(() => DoctorEntity, doctor => doctor.patients)
 @JoinTable()
   dr: DoctorEntity[];
+@ManyToMany(() => DoctorEntity, doctor => doctor.patient,{cascade:true})
+  dc: DoctorEntity[];
 
 }
