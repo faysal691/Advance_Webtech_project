@@ -48,7 +48,7 @@ export class DoctorService {
     }
   )
 }
-//Show All patients
+//Show All patients by doctor
 getDoctorBypatients(id:number){
   return this.patientRepo.find(
     {
@@ -86,6 +86,10 @@ async updatePutpatientByid(id: number, updatedUser: Patientinfo): Promise<patien
   async getAllDoctors(): Promise<DoctorEntity[]> {
   return this.doctorRepo.find();
   }
+  //Find All Doctors
+  async getAllPatients(): Promise<patientEntity[]> {
+    return this.patientRepo.find();
+    }
    //Find All Doctors Appointments
   async getAllDoctorsAppointments(): Promise<DoctorAppointmentsEntity[]> {
     return this.doctorAppointmentRepo.find();

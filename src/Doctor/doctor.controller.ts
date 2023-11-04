@@ -63,6 +63,11 @@ export class DoctorController {
   getAllDoctors(@Body() user:Doctorinfo ) {
     return this.DoctorService.getAllDoctors();
   }
+  //Find All Doctors
+  @Get('/getAllPatients')
+  getAllPatients(@Body() user:Patientinfo ) {
+    return this.DoctorService.getAllPatients();
+  }
   //Find All Doctors Appointments
   @Get('/getAllDoctorsappointments')
   getAllDoctorsAppointments(@Body() user:doctorAppointments ) {
@@ -72,7 +77,8 @@ export class DoctorController {
   @Get('/searchDoctorBy/:id')
   getDoctorbyId(@Param('id') id: number):Promise<DoctorEntity> {
     return this.DoctorService.getDoctorbyId(id);
-  } 
+  }
+   
  //Find All Doctors Appointments by ID
   @Get('/searchDoctorappointmentBy/:id')
   getDoctorAppointmentsbyId(@Param('id') id: number):Promise<DoctorAppointmentsEntity> {
