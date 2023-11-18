@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
@@ -17,7 +18,7 @@ async function bootstrap() {
     }),
   );
   const seederManager = app.get(SeederManager);
-
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await seederManager.runSeeders();
   app.useStaticAssets(path.join(__dirname, '../upload'));
 
